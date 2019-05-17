@@ -18,7 +18,7 @@
 
 
             <div class="content">
-                <div id="example"></div>
+                <div id="app"></div>
 
             </div>
         </div>
