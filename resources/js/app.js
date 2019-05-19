@@ -15,17 +15,24 @@ require('./bootstrap');
 //require('./components/Example');
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 import Header from './components/Header';
 import Login from './components/Login';
 import Register from './components/Register';
 
 class App extends Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          isLoggedIn: false,
+          user: {}
+        };
+      }
       render () {
         return (
           <BrowserRouter>
             <div>
-              <Header />
+              <Header state="{this.state}" />
               <Switch>
                 <Route exact path='/login' component={Login} />
                 <Route exact path='/register' component={Register} />
