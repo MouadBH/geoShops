@@ -18,6 +18,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Header from './components/Header';
 import Login from './components/Login';
+import Register from './components/Register';
 
 class App extends Component {
       render () {
@@ -27,6 +28,7 @@ class App extends Component {
               <Header />
               <Switch>
                 <Route exact path='/login' component={Login} />
+                <Route exact path='/register' component={Register} />
               </Switch>
             </div>
           </BrowserRouter>
