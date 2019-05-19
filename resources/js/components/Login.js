@@ -15,9 +15,14 @@ class Login extends Component {
         errors: {}
     };
 
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
 
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);  
+  }
+  componentDidMount(){
+    if (this.props.state.isLoggedIn) {
+        this.setState({ redirect:true });
+    }
   }
   onChange(e){
       this.setState({ [e.target.name]: e.target.value})
@@ -27,6 +32,7 @@ class Login extends Component {
       return <Redirect to='/' />
     }
   }
+
   onSubmit(e){
       e.preventDefault();
 
@@ -51,15 +57,7 @@ class Login extends Component {
             auth_token,
             timestamp: new Date().toString()
             };
-            let appState = {
-              isLoggedIn: true,
-              user: userData
-            };
-            localStorage["appState"] = JSON.stringify(appState);
-            this.setState({
-              isLoggedIn: appState.isLoggedIn,
-              user: appState.user
-            });
+            this.props.changeState(userData);
 
             this.setState({ redirect: true });
           } else {

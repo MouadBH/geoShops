@@ -65635,9 +65635,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -65679,22 +65679,76 @@ function (_Component) {
       isLoggedIn: false,
       user: {}
     };
+    _this.changeState = _this.changeState.bind(_assertThisInitialized(_this));
+    _this.logOut = _this.logOut.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(App, [{
+    key: "logOut",
+    value: function logOut() {
+      var appState = {
+        isLoggedIn: false,
+        user: {}
+      };
+      localStorage["appState"] = JSON.stringify(appState);
+      this.setState(appState);
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var state = localStorage["appState"];
+
+      if (state) {
+        var AppState = JSON.parse(state);
+        console.log(AppState);
+        this.setState({
+          isLoggedIn: AppState.isLoggedIn,
+          user: AppState
+        });
+      }
+    }
+  }, {
+    key: "changeState",
+    value: function changeState(userData) {
+      var appState = {
+        isLoggedIn: true,
+        user: userData
+      };
+      localStorage["appState"] = JSON.stringify(appState);
+      this.setState({
+        isLoggedIn: appState.isLoggedIn,
+        user: appState.user
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
+      console.log(this.state.isLoggedIn);
+      console.log(this.props);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["BrowserRouter"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Header__WEBPACK_IMPORTED_MODULE_3__["default"], {
-        state: this.state
+        state: this.state,
+        logOut: this.logOut
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         exact: true,
         path: "/login",
-        component: _components_Login__WEBPACK_IMPORTED_MODULE_4__["default"]
+        component: function component() {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Login__WEBPACK_IMPORTED_MODULE_4__["default"], {
+            state: _this2.state,
+            changeState: _this2.changeState
+          });
+        }
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         exact: true,
         path: "/register",
-        component: _components_Register__WEBPACK_IMPORTED_MODULE_5__["default"]
+        component: function component() {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Register__WEBPACK_IMPORTED_MODULE_5__["default"], {
+            state: _this2.state,
+            changeState: _this2.changeState
+          });
+        }
       }))));
     }
   }]);
@@ -65856,16 +65910,57 @@ function (_Component) {
   _inherits(Header, _Component);
 
   function Header() {
-    var _this;
-
     _classCallCheck(this, Header);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Header).call(this));
-    console.log(_this.props.state);
-    return _this;
+    return _possibleConstructorReturn(this, _getPrototypeOf(Header).call(this));
   }
 
   _createClass(Header, [{
+    key: "renderMenu",
+    value: function renderMenu() {
+      if (this.props.state.isLoggedIn) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+          className: "navbar-nav mr-auto"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          className: "nav-item active"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+          className: "nav-link",
+          to: "/"
+        }, "Nearby Shops  ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+          className: "sr-only"
+        }, "(current)"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          className: "nav-item"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+          className: "nav-link",
+          to: "/"
+        }, "My Preferred Shops")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          className: "nav-item"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+          className: "nav-link",
+          onClick: this.props.logOut,
+          to: "/"
+        }, "Logout")));
+      } else {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+          className: "navbar-nav"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          className: "nav-item"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+          className: "nav-link",
+          to: "/login"
+        }, "Login  ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+          className: "sr-only"
+        }, "(current)"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          className: "nav-item"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+          className: "nav-link",
+          to: "/register"
+        }, "Register  ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+          className: "sr-only"
+        }, "(current)"))));
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
@@ -65888,39 +65983,7 @@ function (_Component) {
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "collapse navbar-collapse",
         id: "navbarNav"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-        className: "navbar-nav mr-auto"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        className: "nav-item active"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-        className: "nav-link",
-        to: "/"
-      }, "Nearby Shops  ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "sr-only"
-      }, "(current)"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        className: "nav-item"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-        className: "nav-link",
-        to: "/"
-      }, "My Preferred Shops"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "navbar-nav form-inline my-2 my-lg-0 "
-      }, console.log(JSON.parse(localStorage["appState"])), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-        className: "navbar-nav"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        className: "nav-item"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-        className: "nav-link",
-        to: "/login"
-      }, "Login  ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "sr-only"
-      }, "(current)"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        className: "nav-item"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-        className: "nav-link",
-        to: "/register"
-      }, "Register  ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "sr-only"
-      }, "(current)"))))))));
+      }, this.renderMenu())));
     }
   }]);
 
@@ -65995,6 +66058,15 @@ function (_Component) {
   }
 
   _createClass(Login, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      if (this.props.state.isLoggedIn) {
+        this.setState({
+          redirect: true
+        });
+      }
+    }
+  }, {
     key: "onChange",
     value: function onChange(e) {
       this.setState(_defineProperty({}, e.target.name, e.target.value));
@@ -66033,16 +66105,8 @@ function (_Component) {
             auth_token: auth_token,
             timestamp: new Date().toString()
           };
-          var appState = {
-            isLoggedIn: true,
-            user: userData
-          };
-          localStorage["appState"] = JSON.stringify(appState);
 
-          _this2.setState({
-            isLoggedIn: appState.isLoggedIn,
-            user: appState.user
-          });
+          _this2.props.changeState(userData);
 
           _this2.setState({
             redirect: true
@@ -66169,6 +66233,15 @@ function (_Component) {
   }
 
   _createClass(Login, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      if (this.props.state.isLoggedIn) {
+        this.setState({
+          redirect: true
+        });
+      }
+    }
+  }, {
     key: "onChange",
     value: function onChange(e) {
       this.setState(_defineProperty({}, e.target.name, e.target.value));
@@ -66208,16 +66281,8 @@ function (_Component) {
             auth_token: auth_token,
             timestamp: new Date().toString()
           };
-          var appState = {
-            isLoggedIn: true,
-            user: userData
-          };
-          localStorage["appState"] = JSON.stringify(appState);
 
-          _this2.setState({
-            isLoggedIn: appState.isLoggedIn,
-            user: appState.user
-          });
+          _this2.props.changeState(userData);
 
           _this2.setState({
             redirect: true

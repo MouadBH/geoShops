@@ -26,16 +26,48 @@ class App extends Component {
         this.state = {
           isLoggedIn: false,
           user: {}
+        }
+        this.changeState = this.changeState.bind(this);
+        this.logOut = this.logOut.bind(this);
+      }
+      logOut(){
+        let appState = {
+          isLoggedIn: false,
+          user: {}
         };
+        localStorage["appState"] = JSON.stringify(appState);
+        this.setState(appState);
+      }
+      componentDidMount() {
+        let state = localStorage["appState"];
+        if (state) {
+          let AppState = JSON.parse(state);
+          console.log(AppState);
+          this.setState({ isLoggedIn: AppState.isLoggedIn, user: AppState });
+        }
+      }
+      changeState(userData){
+        let appState = {
+          isLoggedIn: true,
+          user: userData
+        };
+        localStorage["appState"] = JSON.stringify(appState);
+        this.setState({
+          isLoggedIn: appState.isLoggedIn,
+          user: appState.user
+        });
       }
       render () {
+        console.log(this.state.isLoggedIn);
+        console.log(this.props);
+
         return (
           <BrowserRouter>
             <div>
-              <Header state="{this.state}" />
+              <Header state={this.state} logOut={this.logOut}/>
               <Switch>
-                <Route exact path='/login' component={Login} />
-                <Route exact path='/register' component={Register} />
+                <Route exact path='/login' component={() => <Login state={this.state} changeState={this.changeState} />} />
+                <Route exact path='/register' component={() => <Register state={this.state} changeState={this.changeState} />} />
               </Switch>
             </div>
           </BrowserRouter>
