@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom'
-import geolib from 'geolib';
 import { shops } from "./Actions";
 
 class Home extends Component {
@@ -18,6 +17,17 @@ class Home extends Component {
       })
     );
     console.log(this.state);
+  }
+  distanceColor(d){
+    if (d < 10) {
+      return 'success';
+    }else if (d == 10) {
+      return 'primary';
+    }else if (d > 10 && d < 50) {
+      return 'warning';
+    }else {
+      return 'danger';
+    }
   }
   getShopDestance(lat, lng){
     navigator.geolocation.getCurrentPosition(this.setUserCoord);
@@ -48,7 +58,7 @@ class Home extends Component {
   }
   renderShops(){
     const { shops } = this.state;
-    return shops && shops.length ? shops.map((shop, index) => (
+    return shops && shops.length ? shops.sort((a, b) => this.getShopDistance(this.state.coord.latitude, this.state.coord.longitude, a.lat, a.long, 'K') - this.getShopDistance(this.state.coord.latitude, this.state.coord.longitude, b.lat, b.long, 'K')).map((shop, index) => (
       <div key={index} className="col-md-4">
         {this.getShopDestance(shop.lat, shop.long)}
         <div className="card">
@@ -58,12 +68,18 @@ class Home extends Component {
               <a href="#" className="text-dark">{shop.name} </a>
             </h5>
           </div>
-          <div className="card-footer">
-            <div className="badge badge-danger float-right">{this.getShopDistance(this.state.coord.latitude, this.state.coord.longitude, shop.lat, shop.long, 'K').toFixed(2)} KM</div>
+          <div className="card-footer ">
+            <h3 className="align-middle"><div className={"badge badge-"+this.distanceColor(this.getShopDistance(this.state.coord.latitude, this.state.coord.longitude, shop.lat, shop.long, 'K').toFixed(2))+" float-right"}>{this.getShopDistance(this.state.coord.latitude, this.state.coord.longitude, shop.lat, shop.long, 'K').toFixed(2)} KM</div></h3>
             <div className="float-left">
-              <a href="#" className="text-danger"></a>
-              <br />
-              <small className="text-muted">{shop.email}</small>
+              <div className="btn-group btn-group-toggle" data-toggle="buttons">
+                <label className="btn btn-success active">
+                  <input type="radio" name="options" id="option1" autoComplete="off" /> Like
+                </label>
+                <label className="btn btn-danger">
+                  <input type="radio" name="options" id="option3" autoComplete="off" /> Dislike
+                </label>
+              </div>
+
             </div>
           </div>
         </div>
