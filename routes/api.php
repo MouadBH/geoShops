@@ -18,14 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['middleware' => ['jwt.auth']], function () {
-
-    // all routes to protected resources are registered here
-    Route::get('users/list', function(){
-        $users = App\User::all();
-
-        $response = ['success'=>true, 'data'=>$users];
-        return response()->json($response, 201);
-    });
+    Route::get('shops', 'ShopController@index');
 });
 
     Route::post('user/login', 'UserController@login');

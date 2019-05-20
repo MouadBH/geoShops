@@ -19,6 +19,7 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 import Header from './components/Header';
 import Login from './components/Login';
 import Register from './components/Register';
+import Home from './components/Home';
 
 class App extends Component {
       constructor(props) {
@@ -66,6 +67,7 @@ class App extends Component {
             <div>
               <Header state={this.state} logOut={this.logOut}/>
               <Switch>
+                <Route exact path='/' component={() => <Home />} />
                 <Route exact path='/login' component={() => <Login state={this.state} changeState={this.changeState} />} />
                 <Route exact path='/register' component={() => <Register state={this.state} changeState={this.changeState} />} />
               </Switch>

@@ -35,3 +35,15 @@ export const register = user => {
             console.log(err);
         });
 }
+
+export const shops = () => {
+    return axios
+        .get('/api/shops?token='+JSON.parse(localStorage["appState"]).user.auth_token)
+        .then(res => {
+          console.log(res);
+            return res;
+        })
+        .catch(err => {
+            console.log(err);
+        });
+}
