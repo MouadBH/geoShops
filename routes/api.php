@@ -19,6 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['middleware' => ['jwt.auth']], function () {
     Route::get('shops/{id}', 'ShopController@index');
+    Route::get('liked', 'ShopController@likedShops');
     Route::post('shop/favorite', 'FavoriteController@add');
     Route::delete('shop/notfavorite', 'FavoriteController@remove');
 });

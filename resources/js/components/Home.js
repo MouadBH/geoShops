@@ -59,7 +59,7 @@ class Home extends Component {
   setUserCoord(position){
     this.setState({ coord: position.coords });
   }
-  hundleAddFavorite(id,e){
+  hundleAddFavorite(id,e,i){
     e.preventDefault();
     $("#like")
     .attr("disabled", "disabled")
@@ -70,9 +70,11 @@ class Home extends Component {
         user_id: JSON.parse(localStorage["appState"]).user.id,
         shop_id: id
     }
+
     addFavorite(data).then((res) => {
         if (res.data.success) {
           alert('yes');
+          this.unShowShop(i);
         } else {
           alert('not');
         }
@@ -81,27 +83,9 @@ class Home extends Component {
           .html("Like");
     })
   }
-  hundleRemoveFavorite(id,e){
-    e.preventDefault();
-    $("#dislike")
-    .attr("disabled", "disabled")
-    .html(
-      '<i class="fa fa-spinner fa-spin fa-1x fa-fw"></i>Loading...'
-    );
-    const data = {
-        user_id: JSON.parse(localStorage["appState"]).user.id,
-        shop_id: id
-    }
-    deleteFavorite(data).then((res) => {
-        if (res.data.success) {
-          alert('yes');
-        } else {
-          alert('not');
-        }
-        $("#dislike")
-          .removeAttr("disabled")
-          .html("Like");
-    })
+  unShowShop(index){
+    this.state.shops.splice(index,1);
+    this.setState(this.state);
   }
   renderShops(){
     const { shops } = this.state;
@@ -112,14 +96,14 @@ class Home extends Component {
           <img className="card-img-top" src={shop.picture} />
           <div className="card-body">
             <h5 className="card-title">
-              <a href="#" className="text-dark">{shop.name} </a>
+              {shop.name}
             </h5>
           </div>
           <div className="card-footer ">
             <h3 className="align-middle"><div className={"badge badge-"+this.distanceColor(this.getShopDistance(this.state.coord.latitude, this.state.coord.longitude, shop.lat, shop.long, 'K').toFixed(2))+" float-right"}>{this.getShopDistance(this.state.coord.latitude, this.state.coord.longitude, shop.lat, shop.long, 'K').toFixed(2)} KM</div></h3>
             <div className="float-left">
               <div className="btn-group">
-                <button type="button" id="like" onClick={(e) => this.hundleAddFavorite(shop.id,e)} className="btn btn-success">Like</button>
+                <button type="button" id="like" onClick={(e) => this.hundleAddFavorite(shop.id,e,index)} className="btn btn-success">Like</button>
                 <button type="button" id="dislike" onClick={(e) => this.hundleRemoveFavorite(shop.id,e)} className="btn btn-danger">Dislike</button>
               </div>
 

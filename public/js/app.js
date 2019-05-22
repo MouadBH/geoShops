@@ -65626,6 +65626,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Login__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/Login */ "./resources/js/components/Login.js");
 /* harmony import */ var _components_Register__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/Register */ "./resources/js/components/Register.js");
 /* harmony import */ var _components_Home__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/Home */ "./resources/js/components/Home.js");
+/* harmony import */ var _components_PreferredShops__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/PreferredShops */ "./resources/js/components/PreferredShops.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -65656,6 +65657,7 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 //require('./components/Example');
+
 
 
 
@@ -65738,6 +65740,12 @@ function (_Component) {
         path: "/",
         component: function component() {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Home__WEBPACK_IMPORTED_MODULE_6__["default"], null);
+        }
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+        exact: true,
+        path: "/preferred-shops",
+        component: function component() {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PreferredShops__WEBPACK_IMPORTED_MODULE_7__["default"], null);
         }
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         exact: true,
@@ -65832,7 +65840,7 @@ if (token) {
 /*!********************************************!*\
   !*** ./resources/js/components/Actions.js ***!
   \********************************************/
-/*! exports provided: login, register, shops, addFavorite, deleteFavorite */
+/*! exports provided: login, register, shops, likedShops, addFavorite, deleteFavorite */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -65840,6 +65848,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "login", function() { return login; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "register", function() { return register; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "shops", function() { return shops; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "likedShops", function() { return likedShops; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addFavorite", function() { return addFavorite; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteFavorite", function() { return deleteFavorite; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
@@ -65887,6 +65896,14 @@ var shops = function shops() {
     console.log(err);
   });
 };
+var likedShops = function likedShops() {
+  return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/liked?token=' + JSON.parse(localStorage["appState"]).user.auth_token).then(function (res) {
+    console.log(res);
+    return res;
+  })["catch"](function (err) {
+    console.log(err);
+  });
+};
 var addFavorite = function addFavorite(data) {
   return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('api/shop/favorite?token=' + JSON.parse(localStorage["appState"]).user.auth_token, {
     user_id: data.user_id,
@@ -65903,9 +65920,11 @@ var addFavorite = function addFavorite(data) {
   });
 };
 var deleteFavorite = function deleteFavorite(data) {
-  return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('api/shop/notfavorite?token=' + JSON.parse(localStorage["appState"]).user.auth_token, {
-    user_id: data.user_id,
-    shop_id: data.shop_id
+  return axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]('api/shop/notfavorite?token=' + JSON.parse(localStorage["appState"]).user.auth_token, {
+    params: {
+      'user_id': data.user_id,
+      'shop_id': data.shop_id
+    }
   }, {
     headers: {
       'Content-Type': 'application/json'
@@ -65981,7 +66000,7 @@ function (_Component) {
           className: "nav-item"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
           className: "nav-link",
-          to: "/"
+          to: "/preferred-shops"
         }, "My Preferred Shops")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
           className: "nav-item"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
@@ -66170,7 +66189,9 @@ function (_Component) {
     }
   }, {
     key: "hundleAddFavorite",
-    value: function hundleAddFavorite(id, e) {
+    value: function hundleAddFavorite(id, e, i) {
+      var _this3 = this;
+
       e.preventDefault();
       $("#like").attr("disabled", "disabled").html('<i class="fa fa-spinner fa-spin fa-1x fa-fw"></i>Loading...');
       var data = {
@@ -66180,6 +66201,8 @@ function (_Component) {
       Object(_Actions__WEBPACK_IMPORTED_MODULE_2__["addFavorite"])(data).then(function (res) {
         if (res.data.success) {
           alert('yes');
+
+          _this3.unShowShop(i);
         } else {
           alert('not');
         }
@@ -66188,37 +66211,24 @@ function (_Component) {
       });
     }
   }, {
-    key: "hundleRemoveFavorite",
-    value: function hundleRemoveFavorite(id, e) {
-      e.preventDefault();
-      $("#dislike").attr("disabled", "disabled").html('<i class="fa fa-spinner fa-spin fa-1x fa-fw"></i>Loading...');
-      var data = {
-        user_id: JSON.parse(localStorage["appState"]).user.id,
-        shop_id: id
-      };
-      Object(_Actions__WEBPACK_IMPORTED_MODULE_2__["deleteFavorite"])(data).then(function (res) {
-        if (res.data.success) {
-          alert('yes');
-        } else {
-          alert('not');
-        }
-
-        $("#dislike").removeAttr("disabled").html("Like");
-      });
+    key: "unShowShop",
+    value: function unShowShop(index) {
+      this.state.shops.splice(index, 1);
+      this.setState(this.state);
     }
   }, {
     key: "renderShops",
     value: function renderShops() {
-      var _this3 = this;
+      var _this4 = this;
 
       var shops = this.state.shops;
       return shops && shops.length ? shops.sort(function (a, b) {
-        return _this3.getShopDistance(_this3.state.coord.latitude, _this3.state.coord.longitude, a.lat, a["long"], 'K') - _this3.getShopDistance(_this3.state.coord.latitude, _this3.state.coord.longitude, b.lat, b["long"], 'K');
+        return _this4.getShopDistance(_this4.state.coord.latitude, _this4.state.coord.longitude, a.lat, a["long"], 'K') - _this4.getShopDistance(_this4.state.coord.latitude, _this4.state.coord.longitude, b.lat, b["long"], 'K');
       }).map(function (shop, index) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           key: index,
           className: "col-md-4"
-        }, _this3.getShopDestance(shop.lat, shop["long"]), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        }, _this4.getShopDestance(shop.lat, shop["long"]), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "card"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           className: "card-img-top",
@@ -66227,16 +66237,13 @@ function (_Component) {
           className: "card-body"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
           className: "card-title"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-          href: "#",
-          className: "text-dark"
-        }, shop.name, " "))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        }, shop.name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "card-footer "
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
           className: "align-middle"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "badge badge-" + _this3.distanceColor(_this3.getShopDistance(_this3.state.coord.latitude, _this3.state.coord.longitude, shop.lat, shop["long"], 'K').toFixed(2)) + " float-right"
-        }, _this3.getShopDistance(_this3.state.coord.latitude, _this3.state.coord.longitude, shop.lat, shop["long"], 'K').toFixed(2), " KM")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "badge badge-" + _this4.distanceColor(_this4.getShopDistance(_this4.state.coord.latitude, _this4.state.coord.longitude, shop.lat, shop["long"], 'K').toFixed(2)) + " float-right"
+        }, _this4.getShopDistance(_this4.state.coord.latitude, _this4.state.coord.longitude, shop.lat, shop["long"], 'K').toFixed(2), " KM")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "float-left"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "btn-group"
@@ -66244,11 +66251,15 @@ function (_Component) {
           type: "button",
           id: "like",
           onClick: function onClick(e) {
-            return _this3.hundleAddFavorite(shop.id, e);
+            return _this4.hundleAddFavorite(shop.id, e, index);
           },
           className: "btn btn-success"
         }, "Like"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           type: "button",
+          id: "dislike",
+          onClick: function onClick(e) {
+            return _this4.hundleRemoveFavorite(shop.id, e);
+          },
           className: "btn btn-danger"
         }, "Dislike"))))));
       }) : null;
@@ -66448,6 +66459,158 @@ function (_Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
 /* harmony default export */ __webpack_exports__["default"] = (Login);
+
+/***/ }),
+
+/***/ "./resources/js/components/PreferredShops.js":
+/*!***************************************************!*\
+  !*** ./resources/js/components/PreferredShops.js ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _Actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Actions */ "./resources/js/components/Actions.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+
+
+var PreferredShops =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(PreferredShops, _Component);
+
+  function PreferredShops() {
+    var _this;
+
+    _classCallCheck(this, PreferredShops);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(PreferredShops).call(this));
+    _this.state = {
+      shops: []
+    };
+    return _this;
+  }
+
+  _createClass(PreferredShops, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      Object(_Actions__WEBPACK_IMPORTED_MODULE_2__["likedShops"])().then(function (res) {
+        return _this2.setState({
+          shops: res.data.data
+        });
+      });
+      console.log(this.state);
+    }
+  }, {
+    key: "hundleRemoveFavorite",
+    value: function hundleRemoveFavorite(id, e, i) {
+      var _this3 = this;
+
+      e.preventDefault();
+      $("#dislike" + i).attr("disabled", "disabled").html('<i class="fa fa-spinner fa-spin fa-1x fa-fw"></i>Loading...');
+      var data = {
+        user_id: JSON.parse(localStorage["appState"]).user.id,
+        shop_id: id
+      };
+      Object(_Actions__WEBPACK_IMPORTED_MODULE_2__["deleteFavorite"])(data).then(function (res) {
+        if (res.data.success) {
+          alert('yes');
+
+          _this3.unShowShop(i);
+        } else {
+          alert('not');
+        }
+
+        $("#dislike" + i).removeAttr("disabled").html("Like");
+      });
+    }
+  }, {
+    key: "unShowShop",
+    value: function unShowShop(index) {
+      this.state.shops.splice(index, 1);
+      this.setState(this.state);
+    }
+  }, {
+    key: "renderShops",
+    value: function renderShops() {
+      var _this4 = this;
+
+      var shops = this.state.shops;
+      return shops && shops.length ? shops.map(function (shop, index) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          key: index,
+          className: "col-md-4"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "card"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          className: "card-img-top",
+          src: shop.picture
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "card-body"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+          className: "card-title"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+          href: "#",
+          className: "text-dark"
+        }, shop.name, " "))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "card-footer "
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "float-left"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "btn-group"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          type: "button",
+          id: "dislike" + index,
+          onClick: function onClick(e) {
+            return _this4.hundleRemoveFavorite(shop.id, e, index);
+          },
+          className: "btn btn-danger"
+        }, "Remove"))))));
+      }) : null;
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "container-fluid my-2"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Shop List"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, this.renderShops()))));
+    }
+  }]);
+
+  return PreferredShops;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+/* harmony default export */ __webpack_exports__["default"] = (PreferredShops);
 
 /***/ }),
 

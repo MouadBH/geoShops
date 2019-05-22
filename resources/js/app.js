@@ -20,6 +20,7 @@ import Header from './components/Header';
 import Login from './components/Login';
 import Register from './components/Register';
 import Home from './components/Home';
+import PreferredShops from './components/PreferredShops';
 
 class App extends Component {
       constructor(props) {
@@ -68,6 +69,7 @@ class App extends Component {
               <Header state={this.state} logOut={this.logOut}/>
               <Switch>
                 <Route exact path='/' component={() => <Home />} />
+                <Route exact path='/preferred-shops' component={() => <PreferredShops />} />
                 <Route exact path='/login' component={() => <Login state={this.state} changeState={this.changeState} />} />
                 <Route exact path='/register' component={() => <Register state={this.state} changeState={this.changeState} />} />
               </Switch>

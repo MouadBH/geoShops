@@ -48,6 +48,18 @@ export const shops = () => {
         });
 }
 
+export const likedShops = () => {
+    return axios
+        .get('/api/liked?token='+JSON.parse(localStorage["appState"]).user.auth_token)
+        .then(res => {
+          console.log(res);
+            return res;
+        })
+        .catch(err => {
+            console.log(err);
+        });
+}
+
 export const addFavorite = data => {
     return axios
         .post('api/shop/favorite?token='+JSON.parse(localStorage["appState"]).user.auth_token, {
@@ -67,9 +79,11 @@ export const addFavorite = data => {
 
 export const deleteFavorite = data => {
     return axios
-        .post('api/shop/notfavorite?token='+JSON.parse(localStorage["appState"]).user.auth_token, {
-            user_id: data.user_id,
-            shop_id: data.shop_id
+        .delete('api/shop/notfavorite?token='+JSON.parse(localStorage["appState"]).user.auth_token, {
+            params: {
+              'user_id': data.user_id,
+              'shop_id': data.shop_id
+            }
         }, {
                 headers: { 'Content-Type': 'application/json' }
             })

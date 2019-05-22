@@ -22,10 +22,12 @@ class FavoriteController extends Controller
     }
     public function remove(Request $request)
     {
+      //dd($request);
       $shop = Favorite::where([
         ['user_id', '=', $request->user_id],
         ['shop_id', '=', $request->shop_id]
-      ])->first();
+      ]);
+      //dd($shop);
       if ($shop->delete()) {
         return response()->json(['success' => true], 201);
       }else{
