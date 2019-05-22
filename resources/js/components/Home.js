@@ -55,7 +55,7 @@ class Home extends Component {
   }
   hundleAddFavorite(id,e,i){
     e.preventDefault();
-    $("#like")
+    $("#like"+i)
     .attr("disabled", "disabled")
     .html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...');
     const data = {
@@ -70,7 +70,7 @@ class Home extends Component {
         } else {
           notify.show('Oops there some Problem try again later!',"error ");
         }
-        $("#like")
+        $("#like"+i)
           .removeAttr("disabled")
           .html("Like");
     })
@@ -98,8 +98,8 @@ class Home extends Component {
           <div className="card-footer ">
             <div className="text-center">
               <div className="btn-group">
-                <button type="button" id="like" onClick={(e) => this.hundleAddFavorite(shop.id,e,index)} className="btn btn-success btn-md">Like</button>
-                <button type="button" id="dislike" onClick={(e) => this.hundleRemoveFavorite(shop.id,e)} className="btn btn-danger btn-md">Dislike</button>
+                <button type="button" id={"like"+index} onClick={(e) => this.hundleAddFavorite(shop.id,e,index)} className="btn btn-success btn-md">Like</button>
+                <button type="button" id={"dislike"+index} onClick={(e) => this.hundleRemoveFavorite(shop.id,e,index)} className="btn btn-danger btn-md">Dislike</button>
               </div>
 
             </div>

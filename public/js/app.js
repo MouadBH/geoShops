@@ -66279,13 +66279,13 @@ function (_Component) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["BrowserRouter"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Header__WEBPACK_IMPORTED_MODULE_3__["default"], {
         state: this.state,
         logOut: this.logOut
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, this.state.isLoggedIn ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         exact: true,
         path: "/",
         component: function component() {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Home__WEBPACK_IMPORTED_MODULE_6__["default"], null);
         }
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+      }) : "hhhh", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         exact: true,
         path: "/preferred-shops",
         component: function component() {
@@ -66532,7 +66532,7 @@ function (_Component) {
     value: function renderMenu() {
       if (this.props.state.isLoggedIn) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-          className: "navbar-nav mr-auto"
+          className: "navbar-nav ml-auto"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
           className: "nav-item active"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
@@ -66554,7 +66554,7 @@ function (_Component) {
         }, "Logout")));
       } else {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-          className: "navbar-nav"
+          className: "navbar-nav ml-auto"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
           className: "nav-item"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
@@ -66724,7 +66724,7 @@ function (_Component) {
       var _this3 = this;
 
       e.preventDefault();
-      $("#like").attr("disabled", "disabled").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...');
+      $("#like" + i).attr("disabled", "disabled").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...');
       var data = {
         user_id: JSON.parse(localStorage["appState"]).user.id,
         shop_id: id
@@ -66738,7 +66738,7 @@ function (_Component) {
           react_notify_toast__WEBPACK_IMPORTED_MODULE_2__["notify"].show('Oops there some Problem try again later!', "error ");
         }
 
-        $("#like").removeAttr("disabled").html("Like");
+        $("#like" + i).removeAttr("disabled").html("Like");
       });
     }
   }, {
@@ -66779,16 +66779,16 @@ function (_Component) {
           className: "btn-group"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           type: "button",
-          id: "like",
+          id: "like" + index,
           onClick: function onClick(e) {
             return _this4.hundleAddFavorite(shop.id, e, index);
           },
           className: "btn btn-success btn-md"
         }, "Like"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           type: "button",
-          id: "dislike",
+          id: "dislike" + index,
           onClick: function onClick(e) {
-            return _this4.hundleRemoveFavorite(shop.id, e);
+            return _this4.hundleRemoveFavorite(shop.id, e, index);
           },
           className: "btn btn-danger btn-md"
         }, "Dislike"))))));
@@ -66911,7 +66911,7 @@ function (_Component) {
         email: this.state.email,
         password: this.state.password
       };
-      jquery__WEBPACK_IMPORTED_MODULE_2___default()("#email-login-btn").attr("disabled", "disabled").html('<i class="fa fa-spinner fa-spin fa-1x fa-fw"></i>Loading...');
+      jquery__WEBPACK_IMPORTED_MODULE_2___default()("#email-login-btn").attr("disabled", "disabled").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...');
       Object(_Actions__WEBPACK_IMPORTED_MODULE_3__["login"])(user).then(function (res) {
         if (res.data.success) {
           var _res$data$data = res.data.data,
@@ -66942,11 +66942,21 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.renderRedirect(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "container text-center my-2"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Login"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
-        onSubmit: this.onSubmit,
-        className: "col-md-8 mx-auto align-middle"
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "py-4"
+      }, this.renderRedirect(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "container mt-5"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row justify-content-center text-center"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-8"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
+        className: "card-header"
+      }, "Login"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        className: "card-body",
+        onSubmit: this.onSubmit
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-group row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
@@ -66981,7 +66991,7 @@ function (_Component) {
         type: "submit",
         id: "email-login-btn",
         className: "btn btn-primary mb-2"
-      }, "Login"))));
+      }, "Login")))))));
     }
   }]);
 
@@ -67066,7 +67076,7 @@ function (_Component) {
       var _this3 = this;
 
       e.preventDefault();
-      $("#dislike" + i).attr("disabled", "disabled").html('<i class="fa fa-spinner fa-spin fa-1x fa-fw"></i>Loading...');
+      $("#dislike" + i).attr("disabled", "disabled").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...');
       var data = {
         user_id: JSON.parse(localStorage["appState"]).user.id,
         shop_id: id
@@ -67080,7 +67090,7 @@ function (_Component) {
           react_notify_toast__WEBPACK_IMPORTED_MODULE_2__["notify"].show('Oops there some Problem try again later!', "error ");
         }
 
-        $("#dislike" + i).removeAttr("disabled").html("Like");
+        $("#dislike" + i).removeAttr("disabled").html("ٌRemove");
       });
     }
   }, {
@@ -67242,7 +67252,7 @@ function (_Component) {
         email: this.state.email,
         password: this.state.password
       };
-      $("#email-register-btn").attr("disabled", "disabled").html('<i class="fa fa-spinner fa-spin fa-1x fa-fw"></i>Loading...');
+      $("#email-register-btn").attr("disabled", "disabled").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...');
       Object(_Actions__WEBPACK_IMPORTED_MODULE_2__["register"])(user).then(function (res) {
         if (res.data.success) {
           var _res$data$data = res.data.data,
@@ -67267,17 +67277,27 @@ function (_Component) {
           alert('not');
         }
 
-        $("#email-register-btn").removeAttr("disabled").html("Login");
+        $("#email-register-btn").removeAttr("disabled").html("Register");
       });
     }
   }, {
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.renderRedirect(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "container text-center my-2"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Register"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "py-4"
+      }, this.renderRedirect(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "container mt-5"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row justify-content-center text-center"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-8"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
+        className: "card-header"
+      }, "Register"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         onSubmit: this.onSubmit,
-        className: "col-md-8 mx-auto align-middle"
+        className: "card-body"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-group row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
@@ -67327,7 +67347,7 @@ function (_Component) {
         type: "submit",
         id: "email-register-btn",
         className: "btn btn-primary mb-2"
-      }, "Register"))));
+      }, "Register")))))));
     }
   }]);
 

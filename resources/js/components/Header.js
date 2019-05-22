@@ -9,7 +9,7 @@ class Header extends Component {
   renderMenu(){
     if (this.props.state.isLoggedIn) {
 
-      return <ul className="navbar-nav mr-auto">
+      return <ul className="navbar-nav ml-auto">
         <li className="nav-item active">
           <Link className='nav-link' to='/'>Nearby Shops  <span className="sr-only">(current)</span></Link>
         </li>
@@ -21,7 +21,7 @@ class Header extends Component {
         </li>
       </ul>
     } else {
-      return <ul className="navbar-nav">
+      return <ul className="navbar-nav ml-auto">
         <li className="nav-item">
           <Link className='nav-link' to='/login'>Login  <span className="sr-only">(current)</span></Link>
         </li>

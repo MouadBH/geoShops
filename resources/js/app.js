@@ -68,7 +68,7 @@ class App extends Component {
             <div>
               <Header state={this.state} logOut={this.logOut}/>
               <Switch>
-                <Route exact path='/' component={() => <Home />} />
+                {this.state.isLoggedIn ? <Route exact path='/' component={() => <Home />} /> : "hhhh"}
                 <Route exact path='/preferred-shops' component={() => <PreferredShops />} />
                 <Route exact path='/login' component={() => <Login state={this.state} changeState={this.changeState} />} />
                 <Route exact path='/register' component={() => <Register state={this.state} changeState={this.changeState} />} />

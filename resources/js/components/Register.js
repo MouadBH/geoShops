@@ -44,7 +44,7 @@ class Login extends Component {
       $("#email-register-btn")
       .attr("disabled", "disabled")
       .html(
-        '<i class="fa fa-spinner fa-spin fa-1x fa-fw"></i>Loading...'
+        '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...'
       );
 
       register(user).then((res) => {
@@ -65,37 +65,44 @@ class Login extends Component {
         }
         $("#email-register-btn")
           .removeAttr("disabled")
-          .html("Login");
+          .html("Register");
       })
   }
   render(){
     return(
-      <div>
+      <div className="py-4">
         {this.renderRedirect()}
-        <div className="container text-center my-2">
-        <h2>Register</h2>
-          <form onSubmit={this.onSubmit} className='col-md-8 mx-auto align-middle'>
-            <div className="form-group row">
-              <label htmlFor="Username" className="col-sm-4 col-form-label">Username</label>
-              <div className="col-sm-8">
-                <input type="text" name="username" onChange={this.onChange} value={this.state.username} className="form-control mx-sm-3 " id="Username" placeholder="Enter Username" />
+        <div className="container mt-5">
+          <div className="row justify-content-center text-center">
+              <div className="col-md-8">
+                <div className="card">
+                  <h2 className="card-header">Register</h2>
+                  <form onSubmit={this.onSubmit} className="card-body">
+                      <div className="form-group row">
+                        <label htmlFor="Username" className="col-sm-4 col-form-label">Username</label>
+                        <div className="col-sm-8">
+                          <input type="text" name="username" onChange={this.onChange} value={this.state.username} className="form-control mx-sm-3 " id="Username" placeholder="Enter Username" />
+                        </div>
+                      </div>
+                      <div className="form-group row">
+                        <label htmlFor="exampleInputEmail1" className="col-sm-4 col-form-label">Email address</label>
+                        <div className="col-sm-8">
+                          <input type="email" name="email" onChange={this.onChange} value={this.state.email} className="form-control mx-sm-3 " id="exampleInputEmail1" placeholder="Enter Email" />
+                        </div>
+                      </div>
+                      <div className="form-group row">
+                        <label htmlFor="Password" className="col-sm-4 col-form-label">Password</label>
+                        <div className="col-sm-8">
+                          <input type="password" name="password" onChange={this.onChange} value={this.state.password} className="form-control mx-sm-3 " id="Password" placeholder="Enter Your Password" />
+                        </div>
+                      </div>
+                      <button type="submit" id="email-register-btn" className="btn btn-primary mb-2">Register</button>
+                    </form>
+                </div>
               </div>
             </div>
-            <div className="form-group row">
-              <label htmlFor="exampleInputEmail1" className="col-sm-4 col-form-label">Email address</label>
-              <div className="col-sm-8">
-                <input type="email" name="email" onChange={this.onChange} value={this.state.email} className="form-control mx-sm-3 " id="exampleInputEmail1" placeholder="Enter Email" />
-              </div>
-            </div>
-            <div className="form-group row">
-              <label htmlFor="Password" className="col-sm-4 col-form-label">Password</label>
-              <div className="col-sm-8">
-                <input type="password" name="password" onChange={this.onChange} value={this.state.password} className="form-control mx-sm-3 " id="Password" placeholder="Enter Your Password" />
-              </div>
-            </div>
-            <button type="submit" id="email-register-btn" className="btn btn-primary mb-2">Register</button>
-          </form>
         </div>
+
       </div>
     )
   }

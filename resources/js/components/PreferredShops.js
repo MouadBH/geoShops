@@ -23,7 +23,7 @@ class PreferredShops extends Component {
     $("#dislike"+i)
     .attr("disabled", "disabled")
     .html(
-      '<i class="fa fa-spinner fa-spin fa-1x fa-fw"></i>Loading...'
+      '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...'
     );
     const data = {
         user_id: JSON.parse(localStorage["appState"]).user.id,
@@ -38,7 +38,7 @@ class PreferredShops extends Component {
         }
         $("#dislike"+i)
           .removeAttr("disabled")
-          .html("Like");
+          .html("ٌRemove");
     })
   }
   unShowShop(index){

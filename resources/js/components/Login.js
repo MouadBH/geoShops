@@ -17,7 +17,7 @@ class Login extends Component {
 
 
     this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);  
+    this.onSubmit = this.onSubmit.bind(this);
   }
   componentDidMount(){
     if (this.props.state.isLoggedIn) {
@@ -44,7 +44,7 @@ class Login extends Component {
       $("#email-login-btn")
       .attr("disabled", "disabled")
       .html(
-        '<i class="fa fa-spinner fa-spin fa-1x fa-fw"></i>Loading...'
+        '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...'
       );
 
       login(user).then((res) => {
@@ -70,11 +70,14 @@ class Login extends Component {
   }
   render(){
     return(
-        <div>
+        <div className="py-4">
         {this.renderRedirect()}
-          <div className="container text-center my-2">
-          <h2>Login</h2>
-            <form onSubmit={this.onSubmit} className='col-md-8 mx-auto align-middle'>
+          <div className="container mt-5">
+            <div className="row justify-content-center text-center">
+                <div className="col-md-8">
+                  <div className="card">
+                    <h2 className="card-header">Login</h2>
+                    <form className="card-body" onSubmit={this.onSubmit} >
               <div className="form-group row">
                 <label htmlFor="exampleInputEmail1" className="col-sm-4 col-form-label">Email address</label>
                 <div className="col-sm-8">
@@ -89,6 +92,9 @@ class Login extends Component {
               </div>
               <button type="submit" id="email-login-btn" className="btn btn-primary mb-2">Login</button>
             </form>
+                  </div>
+                </div>
+              </div>
           </div>
         </div>
     )
