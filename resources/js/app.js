@@ -21,6 +21,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Home from './components/Home';
 import PreferredShops from './components/PreferredShops';
+import About from './components/About';
 
 class App extends Component {
       constructor(props) {
@@ -68,7 +69,8 @@ class App extends Component {
             <div>
               <Header state={this.state} logOut={this.logOut}/>
               <Switch>
-                {this.state.isLoggedIn ? <Route exact path='/' component={() => <Home />} /> : "hhhh"}
+                <Route exact path='/nearby-shops' component={() => <Home />} />
+                <Route exact path='/' component={About} />
                 <Route exact path='/preferred-shops' component={() => <PreferredShops />} />
                 <Route exact path='/login' component={() => <Login state={this.state} changeState={this.changeState} />} />
                 <Route exact path='/register' component={() => <Register state={this.state} changeState={this.changeState} />} />

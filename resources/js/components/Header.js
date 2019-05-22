@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom'
+import { Link, Redirect, NavLink } from 'react-router-dom'
 
 class Header extends Component {
   constructor() {
@@ -10,23 +10,29 @@ class Header extends Component {
     if (this.props.state.isLoggedIn) {
 
       return <ul className="navbar-nav ml-auto">
-        <li className="nav-item active">
-          <Link className='nav-link' to='/'>Nearby Shops  <span className="sr-only">(current)</span></Link>
+        <li className="nav-item ">
+          <NavLink className='nav-link' exact to='/'>About </NavLink>
+        </li>
+        <li className="nav-item ">
+          <NavLink className='nav-link' exact to='/nearby-shops'>Nearby Shops  </NavLink>
         </li>
         <li className="nav-item">
-          <Link className='nav-link' to='/preferred-shops'>My Preferred Shops</Link>
+          <NavLink className='nav-link' exact to='/preferred-shops'>My Preferred Shops</NavLink>
         </li>
         <li className="nav-item">
-          <Link className='nav-link' onClick={this.props.logOut} to='/'>Logout</Link>
+          <Link className='nav-link' exact onClick={this.props.logOut} to='/'>Logout</Link>
         </li>
       </ul>
     } else {
       return <ul className="navbar-nav ml-auto">
-        <li className="nav-item">
-          <Link className='nav-link' to='/login'>Login  <span className="sr-only">(current)</span></Link>
+        <li className="nav-item ">
+          <NavLink className='nav-link' exact to='/'>About </NavLink>
         </li>
         <li className="nav-item">
-          <Link className='nav-link' to='/register'>Register  <span className="sr-only">(current)</span></Link>
+          <NavLink className='nav-link' exact to='/login'>Login  <span className="sr-only">(current)</span></NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink className='nav-link' exact to='/register'>Register  <span className="sr-only">(current)</span></NavLink>
         </li>
       </ul>
     }
