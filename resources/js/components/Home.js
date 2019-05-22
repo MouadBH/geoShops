@@ -75,6 +75,18 @@ class Home extends Component {
           .html("Like");
     })
   }
+  hundleDislike(id,e,i){
+    e.preventDefault();
+
+    $("#dislike"+i)
+    .attr("disabled", "disabled")
+    .html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...');
+    this.unShowShop(i);
+    notify.show('Basicly its just hidding :D, this button logic didn\'t work yet sorry ;)',"success");
+    $("#dislike"+i)
+      .removeAttr("disabled")
+      .html("Dislike");
+  }
   unShowShop(index){
     this.state.shops.splice(index,1);
     this.setState(this.state);
@@ -99,7 +111,7 @@ class Home extends Component {
             <div className="text-center">
               <div className="btn-group">
                 <button type="button" id={"like"+index} onClick={(e) => this.hundleAddFavorite(shop.id,e,index)} className="btn btn-success btn-md">Like</button>
-                <button type="button" id={"dislike"+index} onClick={(e) => this.hundleRemoveFavorite(shop.id,e,index)} className="btn btn-danger btn-md">Dislike</button>
+                <button type="button" id={"dislike"+index} onClick={(e) => this.hundleDislike(shop.id,e,index)} className="btn btn-danger btn-md">Dislike</button>
               </div>
 
             </div>
@@ -114,8 +126,13 @@ class Home extends Component {
         {!this.props.state.isLoggedIn ? <Redirect to='/login' /> : ""}
         <Notifications />
         <div className="container-fluid my-2">
-          <div className="container">
-          <h2>Shop List</h2>
+          <div className="container text-center">
+            <div className="alert alert-info" role="alert">
+              Make sure to allow your location for the application to work properly!
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
             <div className="row">
               { this.renderShops() }
             </div>{/*.row*/}

@@ -66414,7 +66414,6 @@ var About = function About() {
     className: "col-md-12"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
     src: "https://thewebland.net/wp-content/uploads/2017/11/laravel-react.png",
-    alt: true,
     style: {
       width: '300px'
     }
@@ -66429,7 +66428,7 @@ var About = function About() {
       width: '600px',
       fontSize: '18px'
     }
-  }, "Welcome, this project is a simple web coding challenge created as the second step for job application in ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+  }, "Welcome, this project is a web coding challenge created as the second step for job application in ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     href: "https://unitedremote.com",
     title: " United Remote."
   }, " United Remote."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "It's coded using ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("u", null, "ReactJS"), " for the SPA and ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("u", null, "Laravel"), " for the Api. The main application job is to list shops nearby the user location.", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "For more information please see the links below."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
@@ -66830,6 +66829,15 @@ function (_Component) {
       });
     }
   }, {
+    key: "hundleDislike",
+    value: function hundleDislike(id, e, i) {
+      e.preventDefault();
+      $("#dislike" + i).attr("disabled", "disabled").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...');
+      this.unShowShop(i);
+      react_notify_toast__WEBPACK_IMPORTED_MODULE_2__["notify"].show('Basicly its just hidding :D, this button logic didn\'t work yet sorry ;)', "success");
+      $("#dislike" + i).removeAttr("disabled").html("Dislike");
+    }
+  }, {
     key: "unShowShop",
     value: function unShowShop(index) {
       this.state.shops.splice(index, 1);
@@ -66876,7 +66884,7 @@ function (_Component) {
           type: "button",
           id: "dislike" + index,
           onClick: function onClick(e) {
-            return _this4.hundleRemoveFavorite(shop.id, e, index);
+            return _this4.hundleDislike(shop.id, e, index);
           },
           className: "btn btn-danger btn-md"
         }, "Dislike"))))));
@@ -66890,8 +66898,18 @@ function (_Component) {
       }) : "", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_notify_toast__WEBPACK_IMPORTED_MODULE_2___default.a, null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "container-fluid my-2"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Shop List"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "container text-center"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "alert alert-info",
+        role: "alert"
+      }, "Make sure to allow your location for the application to work properly!", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "button",
+        "class": "close",
+        "data-dismiss": "alert",
+        "aria-label": "Close"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        "aria-hidden": "true"
+      }, "\xD7"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row"
       }, this.renderShops()))));
     }
