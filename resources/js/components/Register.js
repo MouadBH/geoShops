@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
+import Notifications, {notify} from 'react-notify-toast';
 import { register } from "./Actions";
 
 class Login extends Component {
@@ -60,8 +61,9 @@ class Login extends Component {
           this.props.changeState(userData);
 
           this.setState({ redirect: true });
+          notify.show('You Registred Successfully!',"success");
         } else {
-          alert('not');
+          notify.show('Oops there some Problem try again later!',"error");
         }
         $("#email-register-btn")
           .removeAttr("disabled")
@@ -71,6 +73,7 @@ class Login extends Component {
   render(){
     return(
       <div className="py-4">
+        <Notifications />
         {this.renderRedirect()}
         <div className="container mt-5">
           <div className="row justify-content-center text-center">

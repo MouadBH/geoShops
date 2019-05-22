@@ -109,9 +109,9 @@ class Home extends Component {
     )) : null;
   }
   render(){
-    console.log(this.state);
     return(
       <div>
+        {!this.props.state.isLoggedIn ? <Redirect to='/login' /> : ""}
         <Notifications />
         <div className="container-fluid my-2">
           <div className="container">

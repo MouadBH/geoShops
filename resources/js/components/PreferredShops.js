@@ -53,7 +53,7 @@ class PreferredShops extends Component {
           <img className="card-img-top" src={shop.picture} />
           <div className="card-body">
             <h5 className="card-title">
-              <a href="#" className="text-dark">{shop.name} </a>
+              {shop.name}
             </h5>
           </div>
           <div className="card-footer ">
@@ -71,6 +71,7 @@ class PreferredShops extends Component {
   render(){
     return (
       <div>
+      {!this.props.state.isLoggedIn ? <Redirect to='/login' /> : ""}
       <Notifications />
         <div className="container-fluid my-2">
           <div className="container">

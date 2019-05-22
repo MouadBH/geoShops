@@ -69,9 +69,9 @@ class App extends Component {
             <div>
               <Header state={this.state} logOut={this.logOut}/>
               <Switch>
-                <Route exact path='/nearby-shops' component={() => <Home />} />
                 <Route exact path='/' component={About} />
-                <Route exact path='/preferred-shops' component={() => <PreferredShops />} />
+                <Route exact path='/nearby-shops' component={() => <Home state={this.state} />} />
+                <Route exact path='/preferred-shops' component={() => <PreferredShops state={this.state} />} />
                 <Route exact path='/login' component={() => <Login state={this.state} changeState={this.changeState} />} />
                 <Route exact path='/register' component={() => <Register state={this.state} changeState={this.changeState} />} />
               </Switch>
