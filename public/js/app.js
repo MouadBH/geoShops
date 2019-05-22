@@ -66098,6 +66098,12 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+var distanceBadge = {
+  position: 'absolute',
+  right: '5px',
+  top: '5px',
+  fontSize: '15px'
+};
 
 var Home =
 /*#__PURE__*/
@@ -66151,34 +66157,12 @@ function (_Component) {
     }
   }, {
     key: "getShopDistance",
-    value: function getShopDistance(lat1, lon1, lat2, lon2, unit) {
-      if (lat1 == lat2 && lon1 == lon2) {
-        return 0;
-      } else {
-        var radlat1 = Math.PI * lat1 / 180;
-        var radlat2 = Math.PI * lat2 / 180;
-        var theta = lon1 - lon2;
-        var radtheta = Math.PI * theta / 180;
-        var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-
-        if (dist > 1) {
-          dist = 1;
-        }
-
-        dist = Math.acos(dist);
-        dist = dist * 180 / Math.PI;
-        dist = dist * 60 * 1.1515;
-
-        if (unit == "K") {
-          dist = dist * 1.609344;
-        }
-
-        if (unit == "N") {
-          dist = dist * 0.8684;
-        }
-
-        return dist;
-      }
+    value: function getShopDistance(lat, lng) {
+      var origin = new google.maps.LatLng(this.state.coord.latitude, this.state.coord.longitude);
+      var destination = new google.maps.LatLng(lat, lng);
+      var distance_in_meters = google.maps.geometry.spherical.computeDistanceBetween(origin, destination);
+      var distance = distance_in_meters / 1000;
+      return distance.toFixed(1);
     }
   }, {
     key: "setUserCoord",
@@ -66193,7 +66177,7 @@ function (_Component) {
       var _this3 = this;
 
       e.preventDefault();
-      $("#like").attr("disabled", "disabled").html('<i class="fa fa-spinner fa-spin fa-1x fa-fw"></i>Loading...');
+      $("#like").attr("disabled", "disabled").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...');
       var data = {
         user_id: JSON.parse(localStorage["appState"]).user.id,
         shop_id: id
@@ -66223,14 +66207,17 @@ function (_Component) {
 
       var shops = this.state.shops;
       return shops && shops.length ? shops.sort(function (a, b) {
-        return _this4.getShopDistance(_this4.state.coord.latitude, _this4.state.coord.longitude, a.lat, a["long"], 'K') - _this4.getShopDistance(_this4.state.coord.latitude, _this4.state.coord.longitude, b.lat, b["long"], 'K');
+        return _this4.getShopDistance(a.lat, a["long"]) - _this4.getShopDistance(b.lat, b["long"]);
       }).map(function (shop, index) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           key: index,
           className: "col-md-4"
         }, _this4.getShopDestance(shop.lat, shop["long"]), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "card"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+          className: "badge badge-" + _this4.distanceColor(_this4.getShopDistance(shop.lat, shop["long"])) + " float-right",
+          style: distanceBadge
+        }, _this4.getShopDistance(shop.lat, shop["long"]), " KM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           className: "card-img-top",
           src: shop.picture
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -66239,12 +66226,8 @@ function (_Component) {
           className: "card-title"
         }, shop.name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "card-footer "
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
-          className: "align-middle"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "badge badge-" + _this4.distanceColor(_this4.getShopDistance(_this4.state.coord.latitude, _this4.state.coord.longitude, shop.lat, shop["long"], 'K').toFixed(2)) + " float-right"
-        }, _this4.getShopDistance(_this4.state.coord.latitude, _this4.state.coord.longitude, shop.lat, shop["long"], 'K').toFixed(2), " KM")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "float-left"
+          className: "text-center"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "btn-group"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
@@ -66253,14 +66236,14 @@ function (_Component) {
           onClick: function onClick(e) {
             return _this4.hundleAddFavorite(shop.id, e, index);
           },
-          className: "btn btn-success"
+          className: "btn btn-success btn-md"
         }, "Like"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           type: "button",
           id: "dislike",
           onClick: function onClick(e) {
             return _this4.hundleRemoveFavorite(shop.id, e);
           },
-          className: "btn btn-danger"
+          className: "btn btn-danger btn-md"
         }, "Dislike"))))));
       }) : null;
     }

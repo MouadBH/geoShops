@@ -25,11 +25,15 @@
         "sass-loader": "^7.1.0"
     },
     "dependencies": {
+        "fs": "0.0.1-security",
         "geolib": "^2.0.24",
         "google-distance": "^1.0.1",
         "google-distance-matrix": "^1.1.1",
+        "net": "^1.0.2",
         "react-geocode": "^0.1.2",
+        "react-notify-toast": "^0.5.0",
         "react-router-dom": "^5.0.0",
+        "tls": "0.0.1",
         "webpack": "^4.31.0"
     }
 }
