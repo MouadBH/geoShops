@@ -60730,6 +60730,550 @@ if (false) {} else {
 
 /***/ }),
 
+/***/ "./node_modules/react-notify-toast/bin/components/Container.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/react-notify-toast/bin/components/Container.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _defaults = __webpack_require__(/*! ../defaults */ "./node_modules/react-notify-toast/bin/defaults.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+/* Export notification container */
+var _class = function (_React$Component) {
+    _inherits(_class, _React$Component);
+
+    function _class() {
+        _classCallCheck(this, _class);
+
+        return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).apply(this, arguments));
+    }
+
+    _createClass(_class, [{
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            (0, _defaults.mergeOptions)(this.props.options);
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement('div', { id: _defaults.defaults.wrapperId });
+        }
+    }]);
+
+    return _class;
+}(_react2.default.Component);
+
+_class.propTypes = {
+    options: _propTypes2.default.object
+};
+_class.defaultProps = {
+    options: {}
+};
+exports.default = _class;
+
+/***/ }),
+
+/***/ "./node_modules/react-notify-toast/bin/components/Toast.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/react-notify-toast/bin/components/Toast.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _objectAssign = __webpack_require__(/*! object-assign */ "./node_modules/object-assign/index.js");
+
+var _objectAssign2 = _interopRequireDefault(_objectAssign);
+
+var _defaults = __webpack_require__(/*! ../defaults */ "./node_modules/react-notify-toast/bin/defaults.js");
+
+var _stylesheet = __webpack_require__(/*! ../stylesheet */ "./node_modules/react-notify-toast/bin/stylesheet.js");
+
+var _stylesheet2 = _interopRequireDefault(_stylesheet);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+/* React Notification Component */
+var Toast = function (_React$Component) {
+    _inherits(Toast, _React$Component);
+
+    function Toast() {
+        var _ref;
+
+        var _temp, _this, _ret;
+
+        _classCallCheck(this, Toast);
+
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
+        }
+
+        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Toast.__proto__ || Object.getPrototypeOf(Toast)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+            containerStyle: _stylesheet2.default.styles.container
+        }, _temp), _possibleConstructorReturn(_this, _ret);
+    }
+
+    _createClass(Toast, [{
+        key: 'getToastStyle',
+        value: function getToastStyle() {
+            var _props = this.props,
+                type = _props.type,
+                color = _props.color;
+            var styles = _stylesheet2.default.styles;
+
+            var contentStyle = {};
+
+            /* If type is set, merge toast action styles with base */
+            switch (type) {
+                case 'success':
+                case 'error':
+                case 'warning':
+                case 'info':
+                    contentStyle = (0, _objectAssign2.default)({}, styles.content, _defaults.defaults.colors[type]);
+                    break;
+                case 'custom':
+                    var customStyle = {
+                        backgroundColor: color.background,
+                        color: color.text
+                    };
+                    contentStyle = (0, _objectAssign2.default)({}, styles.content, customStyle);
+                    break;
+                default:
+                    contentStyle = (0, _objectAssign2.default)({}, styles.content);
+                    break;
+            }
+
+            return contentStyle;
+        }
+    }, {
+        key: 'animateState',
+        value: function animateState() {
+            var _this2 = this;
+
+            var styles = _stylesheet2.default.styles;
+
+            // Show
+
+            setTimeout(function () {
+                _this2.updateStyle(styles.show);
+            }, 100); // wait 100ms after the component is called to animate toast.
+
+            // Timeout -1 displays toast as a persistent notification
+            if (this.props.timeout === -1) {
+                return;
+            }
+
+            // Hide after timeout
+            setTimeout(function () {
+                _this2.updateStyle(styles.hide);
+            }, this.props.timeout);
+        }
+
+        // Updates the style of the container with styles for a state (hide/show).
+        // This triggers animations.
+
+    }, {
+        key: 'updateStyle',
+        value: function updateStyle(stateStyle) {
+            var styles = _stylesheet2.default.styles;
+
+
+            this.setState({ containerStyle: (0, _objectAssign2.default)({}, styles.container, stateStyle) });
+        }
+    }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            this.animateState();
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var text = this.props.text;
+            var containerStyle = this.state.containerStyle;
+
+
+            return _react2.default.createElement(
+                'div',
+                { className: 'toast-notification', style: containerStyle },
+                _react2.default.createElement(
+                    'span',
+                    { style: this.getToastStyle() },
+                    text
+                )
+            );
+        }
+    }]);
+
+    return Toast;
+}(_react2.default.Component);
+
+Toast.propTypes = {
+    text: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.element]),
+    timeout: _propTypes2.default.number,
+    type: _propTypes2.default.string,
+    color: _propTypes2.default.oneOfType([_propTypes2.default.object, _propTypes2.default.string]),
+    style: _propTypes2.default.oneOfType([_propTypes2.default.object, _propTypes2.default.bool])
+};
+exports.default = Toast;
+
+/***/ }),
+
+/***/ "./node_modules/react-notify-toast/bin/defaults.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/react-notify-toast/bin/defaults.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.mergeOptions = exports.defaults = undefined;
+
+var _objectAssign = __webpack_require__(/*! object-assign */ "./node_modules/object-assign/index.js");
+
+var _objectAssign2 = _interopRequireDefault(_objectAssign);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var defaults = {
+    wrapperId: 'notification-wrapper',
+    animationDuration: 300,
+    timeout: 5000,
+    zIndex: 1000,
+    top: 0, // Controls the offset from top of viewport.
+    colors: {
+        error: {
+            color: "#FFFFFF",
+            backgroundColor: '#E85742'
+        },
+        success: {
+            color: "#FFFFFF",
+            backgroundColor: '#55CA92'
+        },
+        warning: {
+            color: "#333333",
+            backgroundColor: '#F5E273'
+        },
+        info: {
+            color: "#FFFFFF",
+            backgroundColor: '#4990E2'
+        }
+    }
+};
+
+function mergeOptions(options) {
+    exports.defaults = defaults = (0, _objectAssign2.default)(defaults, options);
+}
+
+exports.defaults = defaults;
+exports.mergeOptions = mergeOptions;
+
+/***/ }),
+
+/***/ "./node_modules/react-notify-toast/bin/notify.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/react-notify-toast/bin/notify.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.notify = undefined;
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _Toast = __webpack_require__(/*! ./components/Toast */ "./node_modules/react-notify-toast/bin/components/Toast.js");
+
+var _Toast2 = _interopRequireDefault(_Toast);
+
+var _Container = __webpack_require__(/*! ./components/Container */ "./node_modules/react-notify-toast/bin/components/Container.js");
+
+var _Container2 = _interopRequireDefault(_Container);
+
+var _defaults = __webpack_require__(/*! ./defaults */ "./node_modules/react-notify-toast/bin/defaults.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/* Render React component */
+function renderToast(text, type, timeout, color) {
+    var target = document.getElementById(_defaults.defaults.wrapperId);
+    _reactDom2.default.render(_react2.default.createElement(_Toast2.default, { text: text, timeout: timeout, type: type, color: color }), target);
+}
+
+/* Unmount React component */
+function hide() {
+    var target = document.getElementById(_defaults.defaults.wrapperId);
+    _reactDom2.default.unmountComponentAtNode(target);
+}
+
+/**
+ * Show Animated Toast Message
+ * Returns true if the toast was shown, or false if show failed due to an existing notification
+ *
+ * @param  {String|Node} text    Text/Node to be displayed inside the toast.
+ * @param  {Object}      options Display options for notification (See example below)
+ *
+ * [Options example]
+ * {
+ *   type:    {String} [success/error/info]
+ *   timeout: {Int}    [timeout in ms]
+ *   style:   {Object} [JS representation of CSS]
+ * }
+ */
+function show(text, type, timeout, color) {
+    if (!document.getElementById(_defaults.defaults.wrapperId).hasChildNodes()) {
+        // Use default timeout if not set.
+        var renderTimeout = timeout || _defaults.defaults.timeout;
+
+        // Render Component with Props.
+        renderToast(text, type, renderTimeout, color);
+
+        if (renderTimeout === -1) {
+            return false;
+        }
+
+        // Unmount react component after the animation finished.
+        setTimeout(function () {
+            hide();
+        }, renderTimeout + _defaults.defaults.animationDuration);
+
+        return true;
+    }
+
+    return false;
+}
+
+/**
+ * Add to Animated Toast Message Queue
+ * Display immediately if no queue
+ * @param  {Number} initialRecallDelay   If the call to show fails because of an existing
+ *                                       notification, how long to wait until we retry (ms)
+ * @param  {Number} recallDelayIncrement Each time a successive call fails, the recall delay
+ *                                       will be incremented by this (ms)
+ * @return {[type]}                      [description]
+ */
+function createShowQueue() {
+    var _this = this;
+
+    var initialRecallDelay = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 500;
+    var recallDelayIncrement = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 500;
+
+    // Array to hold queued messages
+    this.msgs = [];
+
+    // Is the showNotify function in progress - used so we can call showNotify when a
+    // message is added to an empty queue.
+    this.isNotifying = false;
+
+    this.currentRecallDelay = initialRecallDelay;
+
+    // Retrieve the next message from the queue and try to show it
+    this.showNotify = function () {
+        // If there are no messages in the queue
+        if (_this.msgs.length === 0) {
+            _this.isNotifying = false;
+            return;
+        }
+
+        _this.isNotifying = true;
+
+        var current = _this.msgs.pop();
+
+        // show will now return true if it is able to send the message,
+        // or false if there is an existing message
+        if (show(current.text, current.type, current.timeout, current.color)) {
+            _this.currentRecallDelay = initialRecallDelay;
+            if (current.timeout > 0) {
+                setTimeout(function () {
+                    return _this.showNotify();
+                }, current.timeout + _defaults.defaults.animationDuration);
+            }
+        } else {
+            // If message show failed, re-add the current message to the front of the queue
+            _this.msgs.unshift(current);
+            setTimeout(function () {
+                return _this.showNotify();
+            }, _this.currentRecallDelay);
+            _this.currentRecallDelay += recallDelayIncrement;
+        }
+    };
+
+    return function (text) {
+        var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+        var timeout = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : _defaults.defaults.timeout;
+        var color = arguments[3];
+
+        _this.msgs.push({ text: text, type: type, timeout: timeout, color: color });
+        if (!_this.isNotifying) {
+            _this.showNotify();
+        }
+    };
+}
+
+/* Export notification functions */
+var notify = exports.notify = {
+    show: show,
+    hide: hide,
+    createShowQueue: createShowQueue
+};
+
+exports.default = _Container2.default;
+
+/***/ }),
+
+/***/ "./node_modules/react-notify-toast/bin/stylesheet.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/react-notify-toast/bin/stylesheet.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _defaults = __webpack_require__(/*! ./defaults */ "./node_modules/react-notify-toast/bin/defaults.js");
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * This was created as an ES6 class with a getter for the styles to allow for recomputing
+ * dynamic values on each usage without calling a function.
+ */
+var Stylesheet = function () {
+    function Stylesheet() {
+        _classCallCheck(this, Stylesheet);
+    }
+
+    _createClass(Stylesheet, [{
+        key: 'styles',
+        get: function get() {
+            return {
+                container: {
+                    position: 'fixed',
+                    width: '50%',
+                    margin: '0 auto',
+                    right: '0px',
+                    top: _defaults.defaults.top,
+                    left: '0px',
+                    textAlign: 'center',
+                    zIndex: _defaults.defaults.zIndex,
+                    pointerEvents: 'none',
+                    transition: 'all ' + _defaults.defaults.animationDuration + 'ms ease',
+                    transform: 'translateY(-100%)',
+
+                    // Vendor Prefixes
+                    msTransition: 'all ' + _defaults.defaults.animationDuration + 'ms ease',
+                    msTransform: 'translateY(-100%)',
+                    WebkitTransition: 'all ' + _defaults.defaults.animationDuration + 'ms ease',
+                    WebkitTransform: 'translateY(-100%)',
+                    OTransition: 'all ' + _defaults.defaults.animationDuration + 'ms ease',
+                    OTransform: 'translateY(-100%)',
+                    MozTransition: 'all ' + _defaults.defaults.animationDuration + 'ms ease',
+                    MozTransform: 'translateY(-100%)'
+                },
+                content: {
+                    cursor: 'pointer',
+                    display: 'inline-block',
+                    width: 'auto',
+                    borderRadius: '0 0 4px 4px',
+                    backgroundColor: 'white',
+                    padding: '10px 30px',
+                    pointerEvents: 'all'
+                },
+                show: {
+                    transform: 'translateY(0)',
+                    msTransform: 'translateY(0)',
+                    WebkitTransform: 'translateY(0)',
+                    OTransform: 'translateY(0)',
+                    MozTransform: 'translateY(0)'
+                },
+                hide: {
+                    transform: 'translateY(-100%)',
+                    msTransform: 'translateY(-100%)',
+                    WebkitTransform: 'translateY(-100%)',
+                    OTransform: 'translateY(-100%)',
+                    MozTransform: 'translateY(-100%)'
+                }
+            };
+        }
+    }]);
+
+    return Stylesheet;
+}();
+
+exports.default = new Stylesheet();
+
+/***/ }),
+
 /***/ "./node_modules/react-router-dom/esm/react-router-dom.js":
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
@@ -66074,7 +66618,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _Actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Actions */ "./resources/js/components/Actions.js");
+/* harmony import */ var react_notify_toast__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-notify-toast */ "./node_modules/react-notify-toast/bin/notify.js");
+/* harmony import */ var react_notify_toast__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_notify_toast__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _Actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Actions */ "./resources/js/components/Actions.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -66092,6 +66638,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -66130,7 +66677,7 @@ function (_Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      Object(_Actions__WEBPACK_IMPORTED_MODULE_2__["shops"])().then(function (res) {
+      Object(_Actions__WEBPACK_IMPORTED_MODULE_3__["shops"])().then(function (res) {
         return _this2.setState({
           shops: res.data.data
         });
@@ -66182,13 +66729,13 @@ function (_Component) {
         user_id: JSON.parse(localStorage["appState"]).user.id,
         shop_id: id
       };
-      Object(_Actions__WEBPACK_IMPORTED_MODULE_2__["addFavorite"])(data).then(function (res) {
+      Object(_Actions__WEBPACK_IMPORTED_MODULE_3__["addFavorite"])(data).then(function (res) {
         if (res.data.success) {
-          alert('yes');
+          react_notify_toast__WEBPACK_IMPORTED_MODULE_2__["notify"].show('Shop Added To Your Preferred Shops!', "success");
 
           _this3.unShowShop(i);
         } else {
-          alert('not');
+          react_notify_toast__WEBPACK_IMPORTED_MODULE_2__["notify"].show('Oops there some Problem try again later!', "error ");
         }
 
         $("#like").removeAttr("disabled").html("Like");
@@ -66251,7 +66798,7 @@ function (_Component) {
     key: "render",
     value: function render() {
       console.log(this.state);
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_notify_toast__WEBPACK_IMPORTED_MODULE_2___default.a, null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "container-fluid my-2"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "container"
@@ -66457,7 +67004,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _Actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Actions */ "./resources/js/components/Actions.js");
+/* harmony import */ var react_notify_toast__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-notify-toast */ "./node_modules/react-notify-toast/bin/notify.js");
+/* harmony import */ var react_notify_toast__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_notify_toast__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _Actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Actions */ "./resources/js/components/Actions.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -66475,6 +67024,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -66503,7 +67053,7 @@ function (_Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      Object(_Actions__WEBPACK_IMPORTED_MODULE_2__["likedShops"])().then(function (res) {
+      Object(_Actions__WEBPACK_IMPORTED_MODULE_3__["likedShops"])().then(function (res) {
         return _this2.setState({
           shops: res.data.data
         });
@@ -66521,13 +67071,13 @@ function (_Component) {
         user_id: JSON.parse(localStorage["appState"]).user.id,
         shop_id: id
       };
-      Object(_Actions__WEBPACK_IMPORTED_MODULE_2__["deleteFavorite"])(data).then(function (res) {
+      Object(_Actions__WEBPACK_IMPORTED_MODULE_3__["deleteFavorite"])(data).then(function (res) {
         if (res.data.success) {
-          alert('yes');
+          react_notify_toast__WEBPACK_IMPORTED_MODULE_2__["notify"].show('Shop Romoved From Your Preferred Shops!', "warning");
 
           _this3.unShowShop(i);
         } else {
-          alert('not');
+          react_notify_toast__WEBPACK_IMPORTED_MODULE_2__["notify"].show('Oops there some Problem try again later!', "error ");
         }
 
         $("#dislike" + i).removeAttr("disabled").html("Like");
@@ -66564,7 +67114,7 @@ function (_Component) {
         }, shop.name, " "))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "card-footer "
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "float-left"
+          className: "text-center"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "btn-group"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
@@ -66580,7 +67130,7 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_notify_toast__WEBPACK_IMPORTED_MODULE_2___default.a, null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "container-fluid my-2"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "container"

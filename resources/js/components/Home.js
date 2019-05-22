@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom';
+import Notifications, {notify} from 'react-notify-toast';
 import { shops } from "./Actions";
 import { addFavorite } from "./Actions";
 import { deleteFavorite } from "./Actions";
@@ -64,10 +65,10 @@ class Home extends Component {
 
     addFavorite(data).then((res) => {
         if (res.data.success) {
-          alert('yes');
+          notify.show('Shop Added To Your Preferred Shops!',"success");
           this.unShowShop(i);
         } else {
-          alert('not');
+          notify.show('Oops there some Problem try again later!',"error ");
         }
         $("#like")
           .removeAttr("disabled")
@@ -111,6 +112,7 @@ class Home extends Component {
     console.log(this.state);
     return(
       <div>
+        <Notifications />
         <div className="container-fluid my-2">
           <div className="container">
           <h2>Shop List</h2>

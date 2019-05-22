@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom';
+import Notifications, {notify} from 'react-notify-toast';
 import { likedShops } from "./Actions";
 import { deleteFavorite } from "./Actions";
 
@@ -30,10 +31,10 @@ class PreferredShops extends Component {
     }
     deleteFavorite(data).then((res) => {
         if (res.data.success) {
-          alert('yes');
+          notify.show('Shop Romoved From Your Preferred Shops!',"warning");
           this.unShowShop(i);
         } else {
-          alert('not');
+          notify.show('Oops there some Problem try again later!',"error ");
         }
         $("#dislike"+i)
           .removeAttr("disabled")
@@ -56,7 +57,7 @@ class PreferredShops extends Component {
             </h5>
           </div>
           <div className="card-footer ">
-            <div className="float-left">
+            <div className="text-center">
               <div className="btn-group">
                 <button type="button" id={"dislike"+index} onClick={(e) => this.hundleRemoveFavorite(shop.id,e,index)} className="btn btn-danger">Remove</button>
               </div>
@@ -70,6 +71,7 @@ class PreferredShops extends Component {
   render(){
     return (
       <div>
+      <Notifications />
         <div className="container-fluid my-2">
           <div className="container">
           <h2>Shop List</h2>
