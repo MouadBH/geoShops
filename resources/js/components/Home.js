@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom'
 import { shops } from "./Actions";
+import { addFavorite } from "./Actions";
+import { deleteFavorite } from "./Actions";
 
 class Home extends Component {
   constructor(){
@@ -10,6 +12,7 @@ class Home extends Component {
       coord: {}
     }
     this.setUserCoord = this.setUserCoord.bind(this);
+    this.hundleAddFavorite = this.hundleAddFavorite.bind(this);
   }
   componentDidMount() {
     shops().then((res) => this.setState({
@@ -56,6 +59,50 @@ class Home extends Component {
   setUserCoord(position){
     this.setState({ coord: position.coords });
   }
+  hundleAddFavorite(id,e){
+    e.preventDefault();
+    $("#like")
+    .attr("disabled", "disabled")
+    .html(
+      '<i class="fa fa-spinner fa-spin fa-1x fa-fw"></i>Loading...'
+    );
+    const data = {
+        user_id: JSON.parse(localStorage["appState"]).user.id,
+        shop_id: id
+    }
+    addFavorite(data).then((res) => {
+        if (res.data.success) {
+          alert('yes');
+        } else {
+          alert('not');
+        }
+        $("#like")
+          .removeAttr("disabled")
+          .html("Like");
+    })
+  }
+  hundleRemoveFavorite(id,e){
+    e.preventDefault();
+    $("#dislike")
+    .attr("disabled", "disabled")
+    .html(
+      '<i class="fa fa-spinner fa-spin fa-1x fa-fw"></i>Loading...'
+    );
+    const data = {
+        user_id: JSON.parse(localStorage["appState"]).user.id,
+        shop_id: id
+    }
+    deleteFavorite(data).then((res) => {
+        if (res.data.success) {
+          alert('yes');
+        } else {
+          alert('not');
+        }
+        $("#dislike")
+          .removeAttr("disabled")
+          .html("Like");
+    })
+  }
   renderShops(){
     const { shops } = this.state;
     return shops && shops.length ? shops.sort((a, b) => this.getShopDistance(this.state.coord.latitude, this.state.coord.longitude, a.lat, a.long, 'K') - this.getShopDistance(this.state.coord.latitude, this.state.coord.longitude, b.lat, b.long, 'K')).map((shop, index) => (
@@ -71,13 +118,9 @@ class Home extends Component {
           <div className="card-footer ">
             <h3 className="align-middle"><div className={"badge badge-"+this.distanceColor(this.getShopDistance(this.state.coord.latitude, this.state.coord.longitude, shop.lat, shop.long, 'K').toFixed(2))+" float-right"}>{this.getShopDistance(this.state.coord.latitude, this.state.coord.longitude, shop.lat, shop.long, 'K').toFixed(2)} KM</div></h3>
             <div className="float-left">
-              <div className="btn-group btn-group-toggle" data-toggle="buttons">
-                <label className="btn btn-success active">
-                  <input type="radio" name="options" id="option1" autoComplete="off" /> Like
-                </label>
-                <label className="btn btn-danger">
-                  <input type="radio" name="options" id="option3" autoComplete="off" /> Dislike
-                </label>
+              <div className="btn-group">
+                <button type="button" id="like" onClick={(e) => this.hundleAddFavorite(shop.id,e)} className="btn btn-success">Like</button>
+                <button type="button" id="dislike" onClick={(e) => this.hundleRemoveFavorite(shop.id,e)} className="btn btn-danger">Dislike</button>
               </div>
 
             </div>

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Shop;
+use App\User;
+use App\Favorite;
 
 class ShopController extends Controller
 {
@@ -12,9 +14,14 @@ class ShopController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        $shops = Shop::all();
+        $userFavShop = User::find($id)->shops()->get();
+        $notFav = collect();
+        foreach ($userFavShop as $shop) {
+          $notFav->push($shop->id);
+        }
+        $shops = Shop::whereNotIn("id", $notFav->all())->get();
         return response()->json(['success' => true, 'data' => $shops], 201);
     }
 

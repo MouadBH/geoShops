@@ -65832,7 +65832,7 @@ if (token) {
 /*!********************************************!*\
   !*** ./resources/js/components/Actions.js ***!
   \********************************************/
-/*! exports provided: login, register, shops */
+/*! exports provided: login, register, shops, addFavorite, deleteFavorite */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -65840,6 +65840,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "login", function() { return login; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "register", function() { return register; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "shops", function() { return shops; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addFavorite", function() { return addFavorite; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteFavorite", function() { return deleteFavorite; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! constants */ "./node_modules/constants-browserify/constants.json");
@@ -65878,7 +65880,37 @@ var register = function register(user) {
   });
 };
 var shops = function shops() {
-  return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/shops?token=' + JSON.parse(localStorage["appState"]).user.auth_token).then(function (res) {
+  return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/shops/' + JSON.parse(localStorage["appState"]).user.id + '?token=' + JSON.parse(localStorage["appState"]).user.auth_token).then(function (res) {
+    console.log(res);
+    return res;
+  })["catch"](function (err) {
+    console.log(err);
+  });
+};
+var addFavorite = function addFavorite(data) {
+  return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('api/shop/favorite?token=' + JSON.parse(localStorage["appState"]).user.auth_token, {
+    user_id: data.user_id,
+    shop_id: data.shop_id
+  }, {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }).then(function (res) {
+    console.log(res);
+    return res;
+  })["catch"](function (err) {
+    console.log(err);
+  });
+};
+var deleteFavorite = function deleteFavorite(data) {
+  return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('api/shop/notfavorite?token=' + JSON.parse(localStorage["appState"]).user.auth_token, {
+    user_id: data.user_id,
+    shop_id: data.shop_id
+  }, {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }).then(function (res) {
     console.log(res);
     return res;
   })["catch"](function (err) {
@@ -66046,6 +66078,8 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
+
 var Home =
 /*#__PURE__*/
 function (_Component) {
@@ -66062,6 +66096,7 @@ function (_Component) {
       coord: {}
     };
     _this.setUserCoord = _this.setUserCoord.bind(_assertThisInitialized(_this));
+    _this.hundleAddFavorite = _this.hundleAddFavorite.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -66134,6 +66169,44 @@ function (_Component) {
       });
     }
   }, {
+    key: "hundleAddFavorite",
+    value: function hundleAddFavorite(id, e) {
+      e.preventDefault();
+      $("#like").attr("disabled", "disabled").html('<i class="fa fa-spinner fa-spin fa-1x fa-fw"></i>Loading...');
+      var data = {
+        user_id: JSON.parse(localStorage["appState"]).user.id,
+        shop_id: id
+      };
+      Object(_Actions__WEBPACK_IMPORTED_MODULE_2__["addFavorite"])(data).then(function (res) {
+        if (res.data.success) {
+          alert('yes');
+        } else {
+          alert('not');
+        }
+
+        $("#like").removeAttr("disabled").html("Like");
+      });
+    }
+  }, {
+    key: "hundleRemoveFavorite",
+    value: function hundleRemoveFavorite(id, e) {
+      e.preventDefault();
+      $("#dislike").attr("disabled", "disabled").html('<i class="fa fa-spinner fa-spin fa-1x fa-fw"></i>Loading...');
+      var data = {
+        user_id: JSON.parse(localStorage["appState"]).user.id,
+        shop_id: id
+      };
+      Object(_Actions__WEBPACK_IMPORTED_MODULE_2__["deleteFavorite"])(data).then(function (res) {
+        if (res.data.success) {
+          alert('yes');
+        } else {
+          alert('not');
+        }
+
+        $("#dislike").removeAttr("disabled").html("Like");
+      });
+    }
+  }, {
     key: "renderShops",
     value: function renderShops() {
       var _this3 = this;
@@ -66166,23 +66239,18 @@ function (_Component) {
         }, _this3.getShopDistance(_this3.state.coord.latitude, _this3.state.coord.longitude, shop.lat, shop["long"], 'K').toFixed(2), " KM")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "float-left"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "btn-group btn-group-toggle",
-          "data-toggle": "buttons"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-          className: "btn btn-success active"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-          type: "radio",
-          name: "options",
-          id: "option1",
-          autoComplete: "off"
-        }), " Like"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+          className: "btn-group"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          type: "button",
+          id: "like",
+          onClick: function onClick(e) {
+            return _this3.hundleAddFavorite(shop.id, e);
+          },
+          className: "btn btn-success"
+        }, "Like"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          type: "button",
           className: "btn btn-danger"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-          type: "radio",
-          name: "options",
-          id: "option3",
-          autoComplete: "off"
-        }), " Dislike"))))));
+        }, "Dislike"))))));
       }) : null;
     }
   }, {

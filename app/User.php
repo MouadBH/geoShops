@@ -58,4 +58,12 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    /**
+     * The Shops that belong to the user.
+     */
+    public function shops()
+    {
+        return $this->belongsToMany('App\Shop','favorites', 'user_id', 'shop_id');
+    }
 }
