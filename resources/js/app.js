@@ -45,7 +45,6 @@ class App extends Component {
         let state = localStorage["appState"];
         if (state) {
           let AppState = JSON.parse(state);
-          console.log(AppState);
           this.setState({ isLoggedIn: AppState.isLoggedIn, user: AppState });
         }
       }
@@ -61,8 +60,6 @@ class App extends Component {
         });
       }
       render () {
-        console.log(this.state.isLoggedIn);
-        console.log(this.props);
 
         return (
           <BrowserRouter>

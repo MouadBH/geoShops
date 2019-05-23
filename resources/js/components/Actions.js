@@ -10,7 +10,6 @@ export const login = user => {
                 headers: { 'Content-Type': 'application/json' }
             })
         .then(res => {
-            console.log(res);
             return  res;
         })
         .catch(err => {
@@ -28,7 +27,6 @@ export const register = user => {
                 headers: { 'Content-Type': 'application/json' }
             })
         .then(res => {
-            console.log(res);
             return res;
         })
         .catch(err => {
@@ -40,7 +38,6 @@ export const shops = () => {
     return axios
         .get('/api/shops/'+JSON.parse(localStorage["appState"]).user.id+'?token='+JSON.parse(localStorage["appState"]).user.auth_token)
         .then(res => {
-          console.log(res);
             return res;
         })
         .catch(err => {
@@ -52,7 +49,6 @@ export const likedShops = () => {
     return axios
         .get('/api/liked?token='+JSON.parse(localStorage["appState"]).user.auth_token)
         .then(res => {
-          console.log(res);
             return res;
         })
         .catch(err => {
@@ -69,7 +65,6 @@ export const addFavorite = data => {
                 headers: { 'Content-Type': 'application/json' }
             })
         .then(res => {
-            console.log(res);
             return  res;
         })
         .catch(err => {
@@ -88,7 +83,6 @@ export const deleteFavorite = data => {
                 headers: { 'Content-Type': 'application/json' }
             })
         .then(res => {
-            console.log(res);
             return  res;
         })
         .catch(err => {

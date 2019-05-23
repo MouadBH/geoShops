@@ -16,7 +16,6 @@ class PreferredShops extends Component {
           shops: res.data.data
       })
     );
-    console.log(this.state);
   }
   hundleRemoveFavorite(id,e,i){
     e.preventDefault();

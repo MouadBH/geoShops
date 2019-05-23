@@ -66251,7 +66251,6 @@ function (_Component) {
 
       if (state) {
         var AppState = JSON.parse(state);
-        console.log(AppState);
         this.setState({
           isLoggedIn: AppState.isLoggedIn,
           user: AppState
@@ -66276,8 +66275,6 @@ function (_Component) {
     value: function render() {
       var _this2 = this;
 
-      console.log(this.state.isLoggedIn);
-      console.log(this.props);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["BrowserRouter"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Header__WEBPACK_IMPORTED_MODULE_3__["default"], {
         state: this.state,
         logOut: this.logOut
@@ -66482,7 +66479,6 @@ var login = function login(user) {
       'Content-Type': 'application/json'
     }
   }).then(function (res) {
-    console.log(res);
     return res;
   })["catch"](function (err) {
     console.log(err);
@@ -66498,7 +66494,6 @@ var register = function register(user) {
       'Content-Type': 'application/json'
     }
   }).then(function (res) {
-    console.log(res);
     return res;
   })["catch"](function (err) {
     console.log(err);
@@ -66506,7 +66501,6 @@ var register = function register(user) {
 };
 var shops = function shops() {
   return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/shops/' + JSON.parse(localStorage["appState"]).user.id + '?token=' + JSON.parse(localStorage["appState"]).user.auth_token).then(function (res) {
-    console.log(res);
     return res;
   })["catch"](function (err) {
     console.log(err);
@@ -66514,7 +66508,6 @@ var shops = function shops() {
 };
 var likedShops = function likedShops() {
   return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/liked?token=' + JSON.parse(localStorage["appState"]).user.auth_token).then(function (res) {
-    console.log(res);
     return res;
   })["catch"](function (err) {
     console.log(err);
@@ -66529,7 +66522,6 @@ var addFavorite = function addFavorite(data) {
       'Content-Type': 'application/json'
     }
   }).then(function (res) {
-    console.log(res);
     return res;
   })["catch"](function (err) {
     console.log(err);
@@ -66546,7 +66538,6 @@ var deleteFavorite = function deleteFavorite(data) {
       'Content-Type': 'application/json'
     }
   }).then(function (res) {
-    console.log(res);
     return res;
   })["catch"](function (err) {
     console.log(err);
@@ -66769,7 +66760,6 @@ function (_Component) {
           shops: res.data.data
         });
       });
-      console.log(this.state);
     }
   }, {
     key: "distanceColor",
@@ -66904,7 +66894,7 @@ function (_Component) {
         role: "alert"
       }, "Make sure to allow your location for the application to work properly!", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "button",
-        "class": "close",
+        className: "close",
         "data-dismiss": "alert",
         "aria-label": "Close"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
@@ -67180,7 +67170,6 @@ function (_Component) {
           shops: res.data.data
         });
       });
-      console.log(this.state);
     }
   }, {
     key: "hundleRemoveFavorite",

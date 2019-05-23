@@ -26,7 +26,6 @@ class Home extends Component {
           shops: res.data.data
       })
     );
-    console.log(this.state);
   }
   distanceColor(d){
     if (d < 10) {
@@ -39,7 +38,7 @@ class Home extends Component {
       return 'danger';
     }
   }
-  getShopDestance(lat, lng){
+  getUserCoors(lat, lng){
     navigator.geolocation.getCurrentPosition(this.setUserCoord);
   }
 
@@ -82,7 +81,7 @@ class Home extends Component {
     .attr("disabled", "disabled")
     .html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...');
     this.unShowShop(i);
-    notify.show('Basicly its just hidding :D, this button logic didn\'t work yet sorry ;)',"success");
+    notify.show('Basically it\'s just hiding :D, this button logic didn\'t working yet sorry ;)',"success");
     $("#dislike"+i)
       .removeAttr("disabled")
       .html("Dislike");
@@ -125,11 +124,12 @@ class Home extends Component {
       <div>
         {!this.props.state.isLoggedIn ? <Redirect to='/login' /> : ""}
         <Notifications />
+        {this.getUserCoors()}
         <div className="container-fluid my-2">
           <div className="container text-center">
             <div className="alert alert-info" role="alert">
               Make sure to allow your location for the application to work properly!
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <button type="button" className="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
