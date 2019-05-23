@@ -11,13 +11,14 @@
 ## Installation
 
 Please check the official laravel installation guide for server requirements before you start. [Official Documentation](https://laravel.com/docs/5.4/installation#installation)
+
 Clone the repository
 
-    git clone git@github.com:eissasoubhi/challenge-project.git
+    git clone https://github.com/MouadBH/geoShops
 
 Switch to the repo folder
 
-    cd challenge-project
+    cd geoShops
 
 Install all the dependencies using composer
 
@@ -48,3 +49,30 @@ Start the local development server
     php artisan serve
 
 You can now access the server at http://localhost:8000
+
+# Screenshots
+
+## Sign up
+<p align="center">
+	<img src="https://i.ibb.co/xHbMvDX/003.png">
+</p>
+
+## Sign in
+<p align="center">
+	<img src="https://i.ibb.co/mhjjs7h/002.png">
+</p>
+
+## Nearby Shops
+<p align="center">
+	<img src="https://i.ibb.co/CBgJQsh/004.png">
+</p>
+
+## My preferred Shops
+<p align="center">
+	<img src="https://i.ibb.co/tHfZ98Z/005.png">
+</p>
+
+## About
+<p align="center">
+	<img src="https://i.ibb.co/9bkVMKV/001.png">
+</p>
